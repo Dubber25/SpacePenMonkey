@@ -1,0 +1,133 @@
+OS:
+
+Technology:
+
+Web Tech:
+
+__________________________________________________________________________________________________________
+
+Nmap:
+
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.3.4
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| ftp-syst:
+|   STAT:
+| FTP server status:
+|      Connected to 10.10.16.8
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      vsFTPd 2.3.4 - secure, fast, stable
+|*End of status
+22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+| ssh-hostkey:
+|   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+|*  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  243de8      Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
+3632/tcp open  distccd     distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 2.6.23 (91%), Dell Integrated Remote Access Controller (iDRAC6) (90%), Linksys WET54GS5 WAP, Tranzeo TR-CPQ-19f WAP, or Xerox WorkCentre Pro 265 printer (90%), Linux 2.4.21 - 2.4.31 (likely embedded) (90%), Linux 2.4.7 (90%), Linux 2.6.8 - 2.6.30 (90%), Dell iDRAC 6 remote access controller (Linux 2.6) (90%), Raritan Dominion PX DPXR20-20L power control unit (90%), LifeSize video conferencing system (Linux 2.4.21) (89%), DD-WRT v24-sp1 (Linux 2.4.36) (89%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 0.002 days (since Thu Sep 21 10:42:21 2023)
+TCP Sequence Prediction: Difficulty=193 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+| smb-os-discovery:
+|   OS: Unix (Samba 3.0.20-Debian)
+|   Computer name: lame
+|   NetBIOS computer name:
+|   Domain name: [hackthebox.gr](http://hackthebox.gr/)
+|   FQDN: [lame.hackthebox.gr](http://lame.hackthebox.gr/)
+|_  System time: 2023-09-21T11:45:06-04:00
+|_smb2-time: Protocol negotiation failed (SMB2)
+|*clock-skew: mean: 2h00m09s, deviation: 2h49m46s, median: 6s
+| smb-security-mode:
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|*  message_signing: disabled (dangerous, but default)
+
+NSE: Script Post-scanning.
+Initiating NSE at 10:45
+Completed NSE at 10:45, 0.00s elapsed
+Initiating NSE at 10:45
+Completed NSE at 10:45, 0.00s elapsed
+Initiating NSE at 10:45
+Completed NSE at 10:45, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 240.21 seconds
+Raw packets sent: 196806 (8.663MB) | Rcvd: 252 (15.596KB)
+
+__________________________________________________________________________________________________________
+
+To try-list
+
+21 - 
+
+139/445 - Enum and poke around
+
+22 -
+
+__________________________________________________________________________________________________________
+
+Findings
+
+rpcclient conenction: 
+
+rpcclient $> enumdomusers
+user:[games] rid:[0x3f2]
+user:[nobody] rid:[0x1f5]
+user:[bind] rid:[0x4ba]
+user:[proxy] rid:[0x402]
+user:[syslog] rid:[0x4b4]
+user:[user] rid:[0xbba]
+user:[www-data] rid:[0x42a]
+user:[root] rid:[0x3e8]
+user:[news] rid:[0x3fa]
+user:[postgres] rid:[0x4c0]
+user:[bin] rid:[0x3ec]
+user:[mail] rid:[0x3f8]
+user:[distccd] rid:[0x4c6]
+user:[proftpd] rid:[0x4ca]
+user:[dhcp] rid:[0x4b2]
+user:[daemon] rid:[0x3ea]
+user:[sshd] rid:[0x4b8]
+user:[man] rid:[0x3f4]
+user:[lp] rid:[0x3f6]
+user:[mysql] rid:[0x4c2]
+user:[gnats] rid:[0x43a]
+user:[libuuid] rid:[0x4b0]
+user:[backup] rid:[0x42c]
+user:[msfadmin] rid:[0xbb8]
+user:[telnetd] rid:[0x4c8]
+user:[sys] rid:[0x3ee]
+user:[klog] rid:[0x4b6]
+user:[postfix] rid:[0x4bc]
+user:[service] rid:[0xbbc]
+user:[list] rid:[0x434]
+user:[irc] rid:[0x436]
+user:[ftp] rid:[0x4be]
+user:[tomcat55] rid:[0x4c4]
+user:[sync] rid:[0x3f0]
+user:[uucp] rid:[0x3fc]
+
+__________________________________________________________________________________________________________
+
+Credentials:
+
+__________________________________________________________________________________________________________
+
+Exploits used:
+
+2023-09-21 17:08:50 UTC  10.10.10.3  Samba "username map script" Command Execution  CVE-2007-2447,OSVDB-34700,BID-23972,URL-http://labs.idefense.com/intel
+ligence/vulnerabilities/display.php?id=534,URL-http://samba.org/samba/
+security/CVE-2007-2447.html

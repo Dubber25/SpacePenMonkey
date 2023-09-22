@@ -1,0 +1,100 @@
+OS:
+
+Web-Technology: PHP
+
+Hostname: Heist
+
+IP: 10.10.10.149
+
+Credentials
+
+rout3r :  `$uperP@ssword`
+
+admin: `Q4)sJu\Y8qz*A3?d`
+
+Hazard: `stealth1agent`
+
+```
+$1$pdQG$o8nrSzsGXeaduXrjlvKc91 : stealth1agent
+!
+username rout3r password 7 0242114B0E143F015F5D1E161713
+username admin privilege 15 password 7 02375012182C1A1D751618034F36415408
+!
+```
+
+================================================================To-Try List
+
+445 —> look for shares, logins, enumerate etc.
+
+smbclient -U Hazard -L 10.10.10.149
+Password for [WORKGROUP\Hazard]:
+
+```
+    Sharename       Type      Comment
+    ---------       ----      -------
+    ADMIN$          Disk      Remote Admin
+    C$              Disk      Default share
+    IPC$            IPC       Remote IPC
+
+```
+
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 10.10.10.149 failed (Error NT_STATUS_IO_TIMEOUT)
+Unable to connect with SMB1 -- no workgroup available
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/155bf019-636b-495f-94ab-91e47c686189/Untitled.png)
+
+80 —> Web Server, dirbuster, loging. sqli 
+
+IIS — PHP 7.3.1? / jquery 3.1
+
+5985 —>
+
+================================================================
+
+NMAP Resuslts 
+
+Nmap scan report for 10.10.10.149
+Host is up (0.048s latency).
+Not shown: 65530 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT      STATE SERVICE       VERSION
+80/tcp    open  http          Microsoft IIS httpd 10.0
+|*http-server-header: Microsoft-IIS/10.0
+| http-cookie-flags:
+|   /:
+|     PHPSESSID:
+|*      httponly flag not set
+| http-methods:
+|_  Potentially risky methods: TRACE
+| http-title: Support Login Page
+|_Requested resource was login.php
+135/tcp   open  msrpc         Microsoft Windows RPC
+445/tcp   open  microsoft-ds?
+5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49669/tcp open  msrpc         Microsoft Windows RPC
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time:
+|   date: 2023-09-15T20:14:25
+|_  start_date: N/A
+|*clock-skew: 1s
+| smb2-security-mode:
+|   3:1:1:
+|*    Message signing enabled but not required
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 186.87 seconds
+
+================================================================
+
+Web-Service Escalation
+
+================================================================
+
+Other / PRiviledge Escalaiton
+
+==============================================================

