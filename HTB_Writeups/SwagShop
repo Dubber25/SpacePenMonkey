@@ -1,0 +1,64 @@
+# SwagShop
+
+OS: Linux
+
+Web-Technology: 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/fda6b3e0-fb74-4aa9-85e2-05d89cdc500f/Untitled.png)
+
+Hostname: 
+
+IP: 10.10.10.140
+
+========================= Credentials found/harvested=================== 
+
+=========================NMAP==================================
+
+Host is up (0.11s latency).
+[*] Nmap: Not shown: 65533 closed tcp ports (reset)
+[*] Nmap: PORT   STATE SERVICE VERSION
+[*] Nmap: 22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+[*] Nmap: | ssh-hostkey:
+[*] Nmap: |   2048 b6:55:2b:d2:4e:8f:a3:81:72:61:37:9a:12:f6:24:ec (RSA)
+[*] Nmap: |   256 2e:30:00:7a:92:f0:89:30:59:c1:77:56:ad:51:c0:ba (ECDSA)
+[*] Nmap: |_  256 4c:50:d5:f2:70:c5:fd:c4:b2:f0:bc:42:20:32:64:34 (ED25519)
+[*] Nmap: 80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+[*] Nmap: |_http-title: Did not follow redirect to http://swagshop.htb/
+[*] Nmap: |*http-favicon: Unknown favicon MD5: 88733EE53676A47FC354A61C32516E82
+[] Nmap: | http-methods:
+[] Nmap: |*  Supported Methods: GET HEAD POST OPTIONS
+[*] Nmap: |_http-server-header: Apache/2.4.29 (Ubuntu)
+[*] Nmap: No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+[*] Nmap: TCP/IP fingerprint:
+[*] Nmap: OS:SCAN(V=7.94%E=4%D=10/30%OT=22%CT=1%CU=31385%PV=Y%DS=2%DC=I%G=Y%TM=653FFC
+[*] Nmap: OS:73%P=x86_64-pc-linux-gnu)SEQ(SP=FE%GCD=1%ISR=10F%TI=Z%CI=Z%TS=A)SEQ(SP=F
+[*] Nmap: OS:E%GCD=1%ISR=10F%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M53AST11NW7%O2=M53AST11NW7%O3
+[*] Nmap: OS:=M53ANNT11NW7%O4=M53AST11NW7%O5=M53AST11NW7%O6=M53AST11)WIN(W1=FE88%W2=F
+[*] Nmap: OS:E88%W3=FE88%W4=FE88%W5=FE88%W6=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M53ANNSNW
+[*] Nmap: OS:7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF
+[*] Nmap: OS:=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=
+[*] Nmap: OS:%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=
+[*] Nmap: OS:0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RI
+[*] Nmap: OS:PCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+[*] Nmap: Uptime guess: 17.671 days (since Thu Oct 12 21:49:56 2023)
+[*] Nmap: Network Distance: 2 hops
+[*] Nmap: TCP Sequence Prediction: Difficulty=254 (Good luck!)
+[*] Nmap: IP ID Sequence Generation: All zeros
+[*] Nmap: Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+[*] Nmap: NSE: Script Post-scanning.
+[*] Nmap: Initiating NSE at 13:56
+[*] Nmap: Completed NSE at 13:56, 0.00s elapsed
+[*] Nmap: Initiating NSE at 13:56
+[*] Nmap: Completed NSE at 13:56, 0.00s elapsed
+[*] Nmap: Initiating NSE at 13:56
+[*] Nmap: Completed NSE at 13:56, 0.00s elapsed
+[*] Nmap: Read data files from: /usr/bin/../share/nmap
+[*] Nmap: OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+[*] Nmap: Nmap done: 1 IP address (1 host up) scanned in 48.25 seconds
+[*] Nmap: Raw packets sent: 65870 (2.903MB) | Rcvd: 65664 (2.630MB)
+
+========================= WebEscalation =============================
+
+========================= Privilege Escalation==========================
+
+================================================================

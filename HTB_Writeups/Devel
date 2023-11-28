@@ -1,0 +1,66 @@
+NMAP -- 
+
+msf6 > db_nmap -sT 10.10.10.5 -p- -T4 -v
+[] Nmap: Starting Nmap 7.94 ( https://nmap.org ) at 2023-09-08 07:58 CDT
+[] Nmap: Initiating Ping Scan at 07:58
+[] Nmap: Scanning 10.10.10.5 [2 ports]
+[] Nmap: Completed Ping Scan at 07:58, 0.04s elapsed (1 total hosts)
+[] Nmap: Initiating Parallel DNS resolution of 1 host. at 07:58
+[] Nmap: Completed Parallel DNS resolution of 1 host. at 07:58, 0.03s elapsed
+[] Nmap: Initiating Connect Scan at 07:58
+[] Nmap: Scanning 10.10.10.5 [65535 ports]
+[] Nmap: Discovered open port 21/tcp on 10.10.10.5
+[] Nmap: Discovered open port 80/tcp on 10.10.10.5
+[] Nmap: Connect Scan Timing: About 23.29% done; ETC: 08:00 (0:01:42 remaining)
+[] Nmap: Connect Scan Timing: About 59.22% done; ETC: 07:59 (0:00:42 remaining)
+[] Nmap: Completed Connect Scan at 07:59, 88.02s elapsed (65535 total ports)
+[] Nmap: Nmap scan report for 10.10.10.5
+[] Nmap: Host is up (0.048s latency).
+[] Nmap: Not shown: 65533 filtered tcp ports (no-response)
+[] Nmap: PORT   STATE SERVICE
+[] Nmap: 21/tcp open  ftp
+[] Nmap: 80/tcp open  http
+[] Nmap: Read data files from: /usr/bin/../share/nmap
+[*] Nmap: Nmap done: 1 IP address (1 host up) scanned in 88.13 seconds
+
+
+
+----Findings--------
+
+# Findings
+
+anonymous login on FTP
+
+allowed to upload revshell file
+
+executed revshell by navigating to the shell. 
+
+# Name Potentially Vulnerable? Check Result
+
+---
+
+1   exploit/windows/local/bypassuac_eventvwr                       Yes                      The target appears to be vulnerable.
+2   exploit/windows/local/cve_2020_0787_bits_arbitrary_file_move   Yes                      The service is running, but could not be validated. Vulnerable Windows 7/Windows Server 2008 R2 build detected!
+
+3   exploit/windows/local/ms10_015_kitrap0d                        Yes                      The service is running, but could not be validated.
+
+4   exploit/windows/local/ms10_092_schelevator                     Yes                      The service is running, but could not be validated.
+
+5   exploit/windows/local/ms13_053_schlamperei                     Yes                      The target appears to be vulnerable.
+6   exploit/windows/local/ms13_081_track_popup_menu                Yes                      The target appears to be vulnerable.
+7   exploit/windows/local/ms14_058_track_popup_menu                Yes                      The target appears to be vulnerable.
+8   exploit/windows/local/ms15_004_tswbproxy                       Yes                      The service is running, but could not be validated.
+
+9   exploit/windows/local/ms15_051_client_copy_image               Yes                      The target appears to be vulnerable.
+10  exploit/windows/local/ms16_016_webdav                          Yes                      The service is running, but could not be validated.
+
+11  exploit/windows/local/ms16_075_reflection                      Yes                      The target appears to be vulnerable.
+12  exploit/windows/local/ms16_075_reflection_juicy                Yes                      The target appears to be vulnerable.
+13  exploit/windows/local/ntusermndragover                         Yes                      The target appears to be vulnerable.
+14  exploit/windows/local/ppr_flatten_rec                          Yes                      The target appears to be vulnerable.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/3f8e15a5-c75d-4fbe-a88b-72c3ba6e7000/Untitled.png)
+
+suggester suggested kernel exploit and it worked. elevated privs with no problem!
+
+USed MS10-015 kitrap0d kernel exploit. to elevate priviledges

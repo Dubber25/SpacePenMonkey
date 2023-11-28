@@ -1,0 +1,164 @@
+# GameZone
+
+OS: Linux
+
+Web-Technology: Apache 2.4.18
+
+Hostname: 
+
+IP: 10.10.233.16
+
+========================= Credentials found/harvested=================== 
+
+agent47 from SQLi db dump: 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/63dd37a8-32c0-48b5-99f9-21fc77af48e9/Untitled.png)
+
+SQLMap
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/cbfb62ce-7602-4f52-bd63-5d036cfd0c26/Untitled.png)
+
+agent47:videogamer124
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/5e211e83-7554-4a3b-92dd-0e690bbc9395/Untitled.png)
+
+[========================= NMAP Results=============================](https://www.notion.so/NMAP-Results-29cf601f842b475bac3667275c70f203?pvs=21)
+
+[┌──(notroot㉿kali)-[~]
+└─$ sudo nmap -Pn -sCV -p- -T4 -O $IP -v --open
+Starting Nmap 7.94 ( [https://nmap.org](https://nmap.org/) ) at 2023-09-30 12:30 CDT
+NSE: Loaded 156 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 12:30
+Completed NSE at 12:30, 0.00s elapsed
+Initiating NSE at 12:30
+Completed NSE at 12:30, 0.00s elapsed
+Initiating NSE at 12:30
+Completed NSE at 12:30, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 12:30
+Completed Parallel DNS resolution of 1 host. at 12:30, 0.03s elapsed
+Initiating SYN Stealth Scan at 12:30
+Scanning 10.10.233.16 [65535 ports]
+Discovered open port 80/tcp on 10.10.233.16
+Discovered open port 22/tcp on 10.10.233.16
+Completed SYN Stealth Scan at 12:31, 44.27s elapsed (65535 total ports)
+Initiating Service scan at 12:31
+Scanning 2 services on 10.10.233.16
+Completed Service scan at 12:31, 6.57s elapsed (2 services on 1 host)
+Initiating OS detection (try #1) against 10.10.233.16
+Retrying OS detection (try #2) against 10.10.233.16
+adjust_timeouts2: packet supposedly had rtt of -325175 microseconds.  Ignoring time.
+adjust_timeouts2: packet supposedly had rtt of -325175 microseconds.  Ignoring time.
+Retrying OS detection (try #3) against 10.10.233.16
+Retrying OS detection (try #4) against 10.10.233.16
+Retrying OS detection (try #5) against 10.10.233.16
+NSE: Script scanning 10.10.233.16.
+Initiating NSE at 12:31
+Completed NSE at 12:31, 7.85s elapsed
+Initiating NSE at 12:31
+Completed NSE at 12:31, 0.77s elapsed
+Initiating NSE at 12:31
+Completed NSE at 12:31, 0.00s elapsed
+Nmap scan report for 10.10.233.16
+Host is up (0.19s latency).
+Not shown: 65533 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 61:ea:89:f1:d4:a7:dc:a5:50:f7:6d:89:c3:af:0b:03 (RSA)
+|   256 b3:7d:72:46:1e:d3:41:b6:6a:91:15:16:c9:4a:a5:fa (ECDSA)
+|_  256 53:67:09:dc:ff:fb:3a:3e:fb:fe:cf:d8:6d:41:27:ab (ED25519)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|*http-title: Game Zone
+|http-server-header: Apache/2.4.18 (Ubuntu)
+| http-cookie-flags:
+|   /:
+|     PHPSESSID:
+|      httponly flag not set
+| http-methods:
+|*  Supported Methods: GET HEAD POST OPTIONS
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.94%E=4%D=9/30%OT=22%CT=1%CU=34780%PV=Y%DS=4%DC=I%G=Y%TM=65185B8
+OS:0%P=x86_64-pc-linux-gnu)SEQ(SP=104%GCD=1%ISR=109%TI=Z%CI=I%TS=8)SEQ(SP=1
+OS:04%GCD=1%ISR=109%TI=Z%CI=I%II=I%TS=8)OPS(O1=M508ST11NW7%O2=M508ST11NW7%O
+OS:3=M508NNT11NW7%O4=M508ST11NW7%O5=M508ST11NW7%O6=M508ST11)WIN(W1=68DF%W2=
+OS:68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)ECN(R=Y%DF=Y%T=40%W=6903%O=M508NNSN
+OS:W7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%D
+OS:F=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O
+OS:=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W
+OS:=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%R
+OS:IPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)](https://www.notion.so/notroot-kali-sudo-nmap-Pn-sCV-p-T4-O-IP-v-open-Starting-Nmap-7-94-https-nmap--fcfbe5d87ea34ac997dc284d2e729724?pvs=21)
+
+Uptime guess: 0.016 days (since Sat Sep 30 12:09:23 2023)
+Network Distance: 4 hops
+TCP Sequence Prediction: Difficulty=260 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+Initiating NSE at 12:31
+Completed NSE at 12:31, 0.00s elapsed
+Initiating NSE at 12:31
+Completed NSE at 12:31, 0.00s elapsed
+Initiating NSE at 12:31
+Completed NSE at 12:31, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 74.03 seconds
+Raw packets sent: 67474 (2.975MB) | Rcvd: 67664 (2.848MB)
+
+========================= WebEscalation =============================
+
+Used dirbuster to enumerate 
+
+┌──(notroot㉿kali)-[~]
+└─$ Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+File found: /index.php - 200
+File found: /portal.php - 302
+Dir found: / - 200
+Dir found: /images/ - 200
+Dir found: /icons/ - 403
+Dir found: /icons/small/ - 403
+
+went to portal.php and foudn it was suspectible to SQLi. 
+
+Information disclosure— error message handling:
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/851e442a-b950-4e9f-956d-91dc387765ee/Untitled.png)
+
+with the statemnt: 
+
+`' union select null, null, version()#`
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/35aa9928-41ed-4a43-861b-9545247311d6/Untitled.png)
+
+dumped table names with :
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/e5b52605-2bcf-4e6f-9089-9e442a903e28/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/b53f94e9-d170-47b4-b473-fa30f944b9e8/Untitled.png)
+
+========================= Privilege Escalation==========================
+
+WE enumerate open ports and found that port 10000 was locally exposed but denied traffic to the outside world. We portforwarded that socket rhough a ssh tunnel to ourselves 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/748777bb-96f4-43a8-b2f2-7302048dc4f0/Untitled.png)
+
+Once there, we lloaded up our browser and pointed it at our [localhost](http://localhost) port 10000
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/df8c84cc-ae8f-4ab0-8ce3-9bae32713a2c/Untitled.png)
+
+we re-uesed agent47’s login info and were able to gain access to the CMS. 
+
+in here we learned the version of CMS (1.580) and that is was vulnerable to RCE via CVE [2012-2982](https://nvd.nist.gov/vuln/detail/CVE-2012-2982)
+
+we used MSFconsole to exploit this and get a reverse shell. 
+
+becasue we were port forwarding the 10000 socker from gamezone to ourselves, we used [localhost](http://localhost) to exploit the CMS and then to call back to ourselves with a revshell. 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50f3aa2-6e21-47ad-afe1-2003932d6cb6/986fb33f-4c09-44f0-b2d0-5bb3c72d7227/Untitled.png)
+
+================================================================
